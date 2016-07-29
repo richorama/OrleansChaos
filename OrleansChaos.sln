@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos", "Chaos\Chaos.csproj", "{7EC77B12-88F6-43E6-8504-39B4674BD49A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHost", "TestHost\TestHost.csproj", "{0047F64A-A04F-4471-97F4-E8B64496435E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EC77B12-88F6-43E6-8504-39B4674BD49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC77B12-88F6-43E6-8504-39B4674BD49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC77B12-88F6-43E6-8504-39B4674BD49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC77B12-88F6-43E6-8504-39B4674BD49A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0047F64A-A04F-4471-97F4-E8B64496435E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0047F64A-A04F-4471-97F4-E8B64496435E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0047F64A-A04F-4471-97F4-E8B64496435E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0047F64A-A04F-4471-97F4-E8B64496435E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
