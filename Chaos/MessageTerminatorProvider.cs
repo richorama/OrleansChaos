@@ -17,6 +17,8 @@ namespace Chaos
 
         public Logger Logger { get; private set; }
 
+        InvokeInterceptor innerInterceptor = null;
+
         Random rand = new Random();
 
         double dropOutRate = 0;
@@ -37,7 +39,8 @@ namespace Chaos
 
             this.Logger.Warn(666, $"Drop out rate set to {dropOutRate * 100}%");
 
-            providerRuntime.SetInvokeInterceptor(this.InvokeInterceptor);
+            this.innerInterceptor = providerRuntime.GetInvokeInterceptor();
+            providerRuntime.SetInvokeInterceptor(this.InvokeGrain);
 
             return TaskDone.Done;
         }
@@ -56,17 +59,27 @@ namespace Chaos
             }
         }
 
-        async Task<object> InvokeInterceptor(MethodInfo targetMethod, InvokeMethodRequest request, IGrain target, IGrainMethodInvoker invoker)
+        async Task<object> InvokeGrain(MethodInfo targetMethod, InvokeMethodRequest request, IGrain target, IGrainMethodInvoker invoker)
         {
             var identity = $"{target.GetType()}.{targetMethod?.Name ?? "?"}";
 
             this.ThrowRandomly(identity);
 
-            var result = await invoker.Invoke(target, request);
+            object result = null;
+            if (this.innerInterceptor != null)
+            {
+                result = await this.innerInterceptor(targetMethod, request, target, invoker);
+            }
+            else
+            {
+                result = await invoker.Invoke(target, request);
+            }
 
             this.ThrowRandomly(identity);
 
             return result;
         }
+
+     
     }
 }

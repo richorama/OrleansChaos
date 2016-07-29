@@ -17,6 +17,8 @@ namespace Chaos
 
         public Logger Logger { get; private set; }
 
+        InvokeInterceptor innerInterceptor = null;
+
         Random rand = new Random();
 
         int MaxLatency = 0;
@@ -37,6 +39,7 @@ namespace Chaos
 
             this.Logger.Warn(666, $"Maximum latency set to {MaxLatency}ms");
 
+            this.innerInterceptor = providerRuntime.GetInvokeInterceptor();
             providerRuntime.SetInvokeInterceptor(this.InvokeInterceptor);
 
             return TaskDone.Done;
@@ -55,7 +58,15 @@ namespace Chaos
             // latency is symetrical, and added before and after the call
             await Task.Delay(amount);
 
-            var result = await invoker.Invoke(target, request);
+            object result = null;
+            if (this.innerInterceptor != null)
+            {
+                result = await this.innerInterceptor(targetMethod, request, target, invoker);
+            }
+            else
+            {
+                result = await invoker.Invoke(target, request);
+            }
 
             await Task.Delay(amount);
 
